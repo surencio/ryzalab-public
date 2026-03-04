@@ -1,0 +1,47 @@
+# White House Example - Copresence (Esther Perel inspired)
+# PLACEHOLDER: Replace person entities with your own (e.g., from Owntracks, HA person).
+# Privacy-first: only runs when wh_privacy_mode is off.
+# See docs/examples/white-house/README.md
+
+template:
+  - binary_sensor:
+      - name: "WH Copresence"
+        unique_id: wh_copresence_binary
+        state: >
+          {{ is_state('person.placeholder_person_1', 'home')
+             and is_state('person.placeholder_person_2', 'home') }}
+        availability: >
+          {{ not is_state('input_boolean.wh_privacy_mode', 'on') }}
+
+history_stats:
+  - name: "WH Copresence Hours Today"
+    entity_id: binary_sensor.wh_copresence
+    state: "on"
+    type: time
+    start: "{{ today_at('00:00:00') }}"
+    end: "{{ now() }}"
+
+automation:
+  - alias: "Copresence Nudge: Low Time Together"
+    id: wh_copresence_nudge_low_time
+    mode: single
+    trigger:
+      - platform: time
+        at: "21:00:00"
+    condition:
+      - condition: state
+        entity_id: input_boolean.wh_notifications_enabled
+        state: "on"
+      - condition: state
+        entity_id: input_boolean.wh_privacy_mode
+        state: "off"
+      - condition: template
+        value_template: >
+          {{ states('sensor.wh_copresence_hours_today')|float(0)
+             < states('input_number.wh_copresence_min_hours_today')|float(0) }}
+    action:
+      - service: notify.wh_household
+        data:
+          message: >
+            Copresence check-in: today was {{ states('sensor.wh_copresence_hours_today') }} hours together at home.
+            Want to protect a small window tonight?

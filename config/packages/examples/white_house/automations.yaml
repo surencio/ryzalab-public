@@ -1,0 +1,82 @@
+# White House Example - Automations
+# PLACEHOLDER: Replace entity IDs (person.*, lock.*, climate.*) with your own.
+# Safe by default: notify only, no lock toggling.
+# See docs/examples/white-house/README.md
+
+- alias: "Departure Guard: Locks And HVAC"
+  id: wh_departure_guard_locks_hvac
+  mode: single
+  trigger:
+    - platform: state
+      entity_id:
+        - person.placeholder_person_1  # PLACEHOLDER: replace with your person entities
+        - person.placeholder_person_2
+      to: "not_home"
+      for: "00:02:00"
+  condition:
+    - condition: state
+      entity_id: input_boolean.wh_notifications_enabled
+      state: "on"
+    - condition: template
+      value_template: >
+        {{ is_state('person.placeholder_person_1', 'not_home')
+           and is_state('person.placeholder_person_2', 'not_home') }}
+    - condition: or
+      conditions:
+        - condition: state
+          entity_id: lock.wh_front_main_lock  # PLACEHOLDER: replace with your lock
+          state: "unlocked"
+        - condition: state
+          entity_id: lock.wh_back_main_lock  # PLACEHOLDER: replace with your lock
+          state: "unlocked"
+        - condition: template
+          value_template: >
+            {{ states('climate.wh_hvac_main_thermo') not in ['off', 'away'] }}
+  action:
+    - service: notify.wh_household
+      data:
+        message: >
+          Departure Guard: someone left and something is still "open."
+          Front lock: {{ states('lock.wh_front_main_lock') }}.
+          Back lock: {{ states('lock.wh_back_main_lock') }}.
+          HVAC: {{ states('climate.wh_hvac_main_thermo') }}.
+
+- alias: "Leak Alert: Notify on Water Detection"
+  id: wh_leak_alert_notify
+  mode: single
+  trigger:
+    - platform: state
+      entity_id:
+        - binary_sensor.wh_utilities_waterheater_sensleak  # PLACEHOLDER
+        - binary_sensor.wh_kitchen_sink_sensleak  # PLACEHOLDER
+      to: "on"
+  condition:
+    - condition: state
+      entity_id: input_boolean.wh_notifications_enabled
+      state: "on"
+  action:
+    - service: notify.wh_household
+      data:
+        message: >
+          Leak detected: {{ trigger.to_state.attributes.friendly_name or trigger.entity_id }}.
+
+- alias: "Night Path: Light on Motion"
+  id: wh_night_path_light
+  mode: restart
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.wh_hallway_sensmot  # PLACEHOLDER: motion sensor
+      to: "on"
+  condition:
+    - condition: sun
+      after: sunset
+      before: sunrise
+    - condition: state
+      entity_id: input_boolean.wh_notifications_enabled
+      state: "on"
+  action:
+    - service: light.turn_on
+      target:
+        entity_id: light.wh_hallway_path_light  # PLACEHOLDER
+      data:
+        brightness_pct: 20
