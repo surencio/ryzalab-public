@@ -21,7 +21,7 @@ It is not the full RyzaLab internal system and it intentionally excludes proprie
 - Opinionated folder structure under config/
 - Runbooks for backup, deploy, rollback
 - Minimal governance (PR checklist)
-- Optional GitHub Actions YAML linting
+- GitHub Actions YAML linting (yamllint on PRs)
 
 ## The White House Demo
 
@@ -68,11 +68,11 @@ Details: docs/GOVERNANCE.md.
 - config/ – intended as HA config root
 - docs/ – runbooks and governance
 - templates/ – decision records and changelog templates
-- .github/ – PR template and optional CI workflows
+- .github/ – PR template and CI (yamllint)
 
-## CI (Optional)
+## CI
 
-PRs trigger yamllint on YAML files. Run locally: `yamllint -c .yamllint .`
+yamllint runs on pull requests when YAML files change. Run locally: `yamllint -c .yamllint .`
 
 ## Safety First
 

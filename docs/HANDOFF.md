@@ -29,7 +29,7 @@ Last updated: 2026-03-03
 - .gitignore – HA exclusions
 - docs/INDEX.md, GOVERNANCE.md, RUNBOOK-*, SECURITY.md
 - docs/AI_GOVERNANCE.md, CURSOR-AGENT-PROMPT.md, HANDOFF.md
-- .github/pull_request_template.md, .github/workflows/yamllint.yml
+- .github/pull_request_template.md, .github/workflows/yamllint.yml (CI on main)
 - .yamllint, templates/ADR-template.md, templates/CHANGELOG-template.md
 - config/README.md – how to load White House package
 
@@ -41,5 +41,9 @@ Last updated: 2026-03-03
 
 ## What Is Next
 
-1. Run yamllint locally to verify YAML
-2. PR with rollback note: "revert commit(s) and remove docs/examples/white-house/, config/packages/examples/white_house/, config/dashboards/examples/"
+1. Merge PR (feat/white-house-example → main)
+2. Rollback note: revert merge and remove docs/examples/white-house/, config/packages/examples/white_house/, config/dashboards/examples/
+
+## CI
+
+yamllint workflow is on main. PRs trigger lint on YAML changes.

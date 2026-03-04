@@ -14,6 +14,10 @@
 - [RUNBOOK-ROLLBACK.md](RUNBOOK-ROLLBACK.md)
 - [SECURITY.md](SECURITY.md)
 
+## CI
+
+- [yamllint workflow](../.github/workflows/yamllint.yml) – Runs on PRs when YAML changes
+
 ## Examples
 
 - [White House Demo](examples/white-house/README.md) – High-anxiety security perimeter persona and example config
