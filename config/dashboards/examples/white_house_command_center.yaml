@@ -1,0 +1,66 @@
+# White House Command Center Dashboard
+# PLACEHOLDER: Replace entity IDs with your own.
+# Add to Lovelace via configuration.yaml or UI.
+# See docs/examples/white-house/README.md
+
+title: "White House Command Center"
+views:
+  - title: "Perimeter"
+    path: perimeter
+    icon: mdi:shield-home
+    cards:
+      - type: markdown
+        content: |
+          ## High-Anxiety Security Perimeter
+          Local control. No cloud. No witnesses.
+
+      - type: entities
+        title: "Departure Guard Inputs"
+        entities:
+          - input_boolean.wh_notifications_enabled
+          - lock.wh_front_main_lock
+          - lock.wh_back_main_lock
+          - climate.wh_hvac_main_thermo
+
+      - type: entities
+        title: "Roofline"
+        entities:
+          - input_boolean.wh_bb_fun_mode
+          - binary_sensor.wh_roof_pizza_detected
+
+  - title: "Daily Life"
+    path: daily
+    icon: mdi:home-heart
+    cards:
+      - type: entities
+        title: "Copresence"
+        entities:
+          - input_boolean.wh_privacy_mode
+          - input_number.wh_copresence_min_hours_today
+          - binary_sensor.wh_copresence
+          - sensor.wh_copresence_hours_today
+
+      - type: entities
+        title: "Sonos"
+        entities:
+          - media_player.wh_lr_speaker1_media
+          - media_player.wh_kit_speaker1_media
+          - script.wh_morning_music
+
+  - title: "Utilities"
+    path: utilities
+    icon: mdi:wrench
+    cards:
+      - type: entities
+        title: "Water and Leaks"
+        entities:
+          - binary_sensor.wh_utilities_waterheater_sensleak
+          - binary_sensor.wh_kitchen_sink_sensleak
+          - switch.wh_utilities_main_water_valve
+
+      - type: entities
+        title: "Basement Air"
+        entities:
+          - sensor.wh_basement_voc_sensvoc
+          - sensor.wh_basement_humidity_senshum
+          - switch.wh_basement_vent_fan_switch
