@@ -1,0 +1,41 @@
+RyzaLab Home Assistant GitOps Starter – License
+Copyright (c) 2026 RyzaLab (Ryan Gregg)
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to use,
+copy, modify, and distribute the Software for personal, non-commercial, and
+home automation purposes, subject to the following conditions:
+
+1. ATTRIBUTION
+   The above copyright notice and this permission notice shall be included in
+   all copies or substantial portions of the Software.
+
+2. TRADEMARK AND NAME
+   You may not use the names "RyzaLab" or "Ryan Gregg" in connection with
+   this Software or any derivative work in a manner that suggests endorsement,
+   sponsorship, or affiliation, except to give attribution as required above.
+   Use of the Software does not grant any right to use RyzaLab trademarks,
+   logos, or trade names.
+
+3. AI AND MACHINE LEARNING
+   You may not use this Software, or any portion or derivative of it, as
+   training data, input, or material for machine learning models, large
+   language models, code generation systems, or similar artificial
+   intelligence systems, without prior written permission from the
+   copyright holder. This restriction does not apply to normal use of
+   the Software (e.g., running it, editing configuration) or to tools that
+   assist human editing (e.g., syntax highlighting, autocomplete).
+
+4. COMMERCIAL USE
+   Use of this Software for commercial purposes (including but not limited
+   to sale, resale, or incorporation into a commercial product or service)
+   requires prior written permission from the copyright holder.
+
+5. DISCLAIMER
+   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+   OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+   MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+   IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+   CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+   TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+   SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
