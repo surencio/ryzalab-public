@@ -1,0 +1,15 @@
+# White House Example - Helpers
+# PLACEHOLDER: Replace entity IDs with your own before use.
+# See docs/examples/white-house/README.md
+
+wh_notifications_enabled:
+  name: "Notifications Enabled"
+  icon: mdi:bell
+
+wh_privacy_mode:
+  name: "Privacy Mode"
+  icon: mdi:shield-lock
+
+wh_bb_fun_mode:
+  name: "Breaking Bad Fun Mode"
+  icon: mdi:flask

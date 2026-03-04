@@ -1,5 +1,5 @@
 # White House Example - Automations
-# PLACEHOLDER: Replace entity IDs (person.*, lock.*, climate.*) with your own.
+# PLACEHOLDER: Replace entity IDs (person.*, lock.*, climate.*, sensors) with your own.
 # Safe by default: notify only, no lock toggling.
 # See docs/examples/white-house/README.md
 
@@ -80,3 +80,85 @@
         entity_id: light.wh_hallway_path_light  # PLACEHOLDER
       data:
         brightness_pct: 20
+
+- alias: "Quiet Hours: Lower Sonos Volume"
+  id: wh_quiet_hours_lower_sonos
+  trigger:
+    - platform: time
+      at: "22:30:00"
+  action:
+    - service: media_player.volume_set
+      target:
+        entity_id:
+          - media_player.wh_lr_speaker1_media  # PLACEHOLDER
+          - media_player.wh_kit_speaker1_media  # PLACEHOLDER
+      data:
+        volume_level: 0.10
+
+- alias: "Copresence Nudge: Low Time Together"
+  id: wh_copresence_nudge_low_time
+  mode: single
+  trigger:
+    - platform: time
+      at: "21:00:00"
+  condition:
+    - condition: state
+      entity_id: input_boolean.wh_notifications_enabled
+      state: "on"
+    - condition: state
+      entity_id: input_boolean.wh_privacy_mode
+      state: "off"
+    - condition: template
+      value_template: >
+        {{ states('sensor.wh_copresence_hours_today')|float(0)
+           < states('input_number.wh_copresence_min_hours_today')|float(0) }}
+  action:
+    - service: notify.wh_household
+      data:
+        message: >
+          Copresence check-in: today was {{ states('sensor.wh_copresence_hours_today') }} hours together at home.
+          Want to protect a small window tonight?
+
+- alias: "Roof Alert: Large Pepperoni Pizza"
+  id: wh_roof_pizza_alert
+  mode: single
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.wh_roof_pizza_detected  # PLACEHOLDER: e.g. object detection
+      to: "on"
+  condition:
+    - condition: state
+      entity_id: input_boolean.wh_bb_fun_mode
+      state: "on"
+    - condition: state
+      entity_id: input_boolean.wh_notifications_enabled
+      state: "on"
+  action:
+    - service: notify.wh_household
+      data:
+        message: "Crisis at the gable. Pizza on the roof."
+
+- alias: "Basement Air: Turn On Vent Fan"
+  id: wh_basement_air_vent_fan_on
+  mode: restart
+  trigger:
+    - platform: numeric_state
+      entity_id: sensor.wh_basement_voc_sensvoc  # PLACEHOLDER
+      above: 600
+    - platform: numeric_state
+      entity_id: sensor.wh_basement_humidity_senshum  # PLACEHOLDER
+      above: 70
+  condition:
+    - condition: state
+      entity_id: input_boolean.wh_notifications_enabled
+      state: "on"
+  action:
+    - service: switch.turn_on
+      target:
+        entity_id: switch.wh_basement_vent_fan_switch  # PLACEHOLDER
+    - service: notify.wh_household
+      data:
+        message: >
+          Basement air safety: ventilation turned on.
+          VOC={{ states('sensor.wh_basement_voc_sensvoc') }},
+          Humidity={{ states('sensor.wh_basement_humidity_senshum') }}.

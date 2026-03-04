@@ -9,9 +9,7 @@ Add to your `configuration.yaml`:
 ```yaml
 homeassistant:
   packages:
-    !include_dir_named packages
-    examples:
-      white_house: !include_dir_merge_named packages/examples/white_house
+    white_house: !include_dir_merge_named packages/examples/white_house
 ```
 
 Replace all PLACEHOLDER entity IDs in the example files before use.

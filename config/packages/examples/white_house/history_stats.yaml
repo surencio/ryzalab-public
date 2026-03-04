@@ -1,0 +1,9 @@
+# White House Example - Copresence (Esther Perel inspired)
+# See docs/examples/white-house/README.md
+
+- name: "WH Copresence Hours Today"
+  entity_id: binary_sensor.wh_copresence
+  state: "on"
+  type: time
+  start: "{{ today_at('00:00:00') }}"
+  end: "{{ now() }}"

@@ -1,0 +1,7 @@
+# White House Example - Helpers
+# PLACEHOLDER: Add your notify platform (e.g., mobile_app, notify) to use wh_household.
+# See docs/examples/white-house/README.md
+
+- platform: group
+  name: wh_household
+  services: []  # Add your notify entities, e.g. - notify.mobile_app_phone

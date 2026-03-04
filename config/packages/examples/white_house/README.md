@@ -9,20 +9,20 @@ Add to your `configuration.yaml`:
 ```yaml
 homeassistant:
   packages:
-    !include_dir_named packages
-    examples:
-      white_house: !include_dir_merge_named packages/examples/white_house
+    white_house: !include_dir_merge_named packages/examples/white_house
 ```
 
-Or copy the files into your main `packages/` folder and adapt the include.
+This folder is domain-keyed for `!include_dir_merge_named` (one YAML file per HA domain).
 
 ## Files
 
-- `helpers.yaml` – input_booleans, input_numbers, notify group
-- `automations.yaml` – departure guard, leak alert, night path
-- `sonos.yaml` – morning music script, quiet hours
-- `copresence.yaml` – copresence sensor and nudge automation
-- `breaking_bad.yaml` – fun-mode automations (roof pizza, basement air)
+- `automation.yaml` – all example automations
+- `history_stats.yaml` – copresence hours sensor
+- `input_boolean.yaml` – helper toggles
+- `input_number.yaml` – copresence threshold helper
+- `notify.yaml` – household notify group
+- `script.yaml` – Sonos morning routine
+- `template.yaml` – copresence binary sensor
 
 ## Before Use
 

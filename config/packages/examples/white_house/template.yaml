@@ -1,0 +1,13 @@
+# White House Example - Copresence (Esther Perel inspired)
+# PLACEHOLDER: Replace person entities with your own (e.g., from Owntracks, HA person).
+# Privacy-first: only runs when wh_privacy_mode is off.
+# See docs/examples/white-house/README.md
+
+- binary_sensor:
+    - name: "WH Copresence"
+      unique_id: wh_copresence_binary
+      state: >
+        {{ is_state('person.placeholder_person_1', 'home')
+           and is_state('person.placeholder_person_2', 'home') }}
+      availability: >
+        {{ not is_state('input_boolean.wh_privacy_mode', 'on') }}
