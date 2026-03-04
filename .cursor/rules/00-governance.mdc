@@ -1,0 +1,19 @@
+---
+description: Global AI governance defaults for this repository
+alwaysApply: true
+---
+
+# Governance Defaults
+
+Follow:
+
+- `docs/AI_GOVERNANCE.md`
+- `docs/HANDOFF.md`
+- `docs/GOVERNANCE.md`
+- `docs/CURSOR-AGENT-PROMPT.md`
+
+Required prompt tags:
+
+- `@PRD-ryzalab-public.md`
+- `@Tasks-ryzalab-public.md`
+- `@docs/HANDOFF.md`
