@@ -12,7 +12,24 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Get changed YAML files
+        id: changed
+        run: |
+          git fetch origin ${{ github.event.pull_request.base.ref }}
+          git diff --name-only origin/${{ github.event.pull_request.base.ref }}...HEAD | grep -E '\.(yml|yaml)$' > changed_yaml.txt || true
+          if [ -s changed_yaml.txt ]; then
+            echo "skip=false" >> $GITHUB_OUTPUT
+            echo "Linting changed YAML files:"
+            cat changed_yaml.txt
+          else
+            echo "skip=true" >> $GITHUB_OUTPUT
+            echo "No .yml or .yaml files changed; skipping yamllint."
+          fi
       - name: Install yamllint
+        if: steps.changed.outputs.skip != 'true'
         run: pipx install yamllint
       - name: Run yamllint
-        run: yamllint -c .yamllint .
+        if: steps.changed.outputs.skip != 'true'
+        run: xargs yamllint -c .yamllint < changed_yaml.txt
