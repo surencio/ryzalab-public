@@ -1,0 +1,23 @@
+# Home Assistant common ignores
+config/.storage/
+config/secrets.yaml
+config/*.db
+config/home-assistant.log*
+config/home-assistant_v2.db*
+config/backup*
+config/backups/
+config/tmp/
+config/.cloud/
+config/.ios.*
+config/.google.*
+config/tts/
+config/media/
+config/__pycache__/
+**/__pycache__/
+*.pyc
+
+# OS/editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
